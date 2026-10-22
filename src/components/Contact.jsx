@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import emailjs from "@emailjs/browser";
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const services = [
   "Small Engine Repair",
@@ -69,8 +74,15 @@ export default function Contact() {
 
     setStatus("loading");
 
-    // Placeholder: simulates a delay before showing success
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, {
+        publicKey: EMAILJS_PUBLIC_KEY,
+      });
+    } catch (err) {
+      console.error("Failed to send booking request:", err);
+      setStatus("error");
+      return;
+    }
 
     setStatus("success");
     setForm({

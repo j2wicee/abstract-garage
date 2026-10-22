@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap');
 
 @theme {
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;

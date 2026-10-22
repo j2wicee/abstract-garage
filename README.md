@@ -19,6 +19,12 @@ npm run dev
 
 The dev server runs at http://localhost:5173.
 
+### Booking form (EmailJS)
+
+The contact form sends booking requests through [EmailJS](https://www.emailjs.com/). Copy `.env.example` to `.env.local` and fill in the service ID, template ID, and public key from the EmailJS dashboard. The template can use these variables: `{{from_name}}`, `{{phone}}`, `{{email}}`, `{{vehicle}}`, `{{service}}`, `{{message}}`.
+
+`.env.local` is gitignored. When deploying, set the same three `VITE_EMAILJS_*` variables in the hosting provider's environment settings.
+
 ### Scripts
 
 | Command           | Description                          |

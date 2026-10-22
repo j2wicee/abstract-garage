@@ -10,10 +10,9 @@ export const business = {
   // Set once the site has a domain, e.g. "https://abstractgarage.com"
   url: "",
 
-  // TODO: replace with the real number before launch
   phone: {
-    display: "(910) 000-0000",
-    e164: "+19100000000",
+    display: "(910) 960-7008",
+    e164: "+19109607008",
   },
   email: "abstractgarage2@gmail.com",
 

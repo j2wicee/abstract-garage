@@ -117,6 +117,20 @@ export default function Services({ number }) {
           ))}
         </div>
 
+        {/* Pricing note: prices vary by vehicle and job */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-8 border-l-2 border-blue-500 pl-4"
+        >
+          <p className="text-zinc-400 text-sm max-w-2xl">
+            Pricing depends on your vehicle and the job. Reach out for a
+            quote, and you'll know the cost before any work starts.
+          </p>
+        </motion.div>
+
         {/* Mobile mechanic callout */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

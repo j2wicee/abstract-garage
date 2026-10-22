@@ -47,9 +47,9 @@ The **Recent Work** section, **Reviews** section, and **owner photo** stay hidde
 
 ## Before launch
 
-- [ ] Real phone number in `src/data/business.js`
+- [x] Real phone number in `src/data/business.js`
 - [ ] Owner confirms hours, "10+ years", "reply within 24 hours", and the service list
-- [ ] EmailJS set up and a test booking received
+- [x] EmailJS set up and a test booking received
 - [ ] Owner photo, work photos, and a few real reviews added
 - [ ] Domain bought, `url` set in `src/data/business.js`, site deployed with the `VITE_EMAILJS_*` env vars
 - [ ] Add an `og:image` share photo in `index.html`

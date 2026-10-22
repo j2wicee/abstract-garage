@@ -1,6 +1,7 @@
 import { lazy, Suspense, useRef } from "react";
 import {
   motion,
+  motionValue,
   useInView,
   useReducedMotion,
   useScroll,
@@ -14,9 +15,69 @@ const isSmallScreen =
   typeof window !== "undefined" &&
   window.matchMedia("(max-width: 768px)").matches;
 
+// Stand-in when there's no scroll progress (reduced motion), so hooks
+// still run in the same order
+const NO_PROGRESS = motionValue(0);
+
 // 0 before `start`, 1 after `end`, linear in between
 const between = (p, start, end) =>
   Math.min(1, Math.max(0, (p - start) / (end - start)));
+
+// Solid blue sides angled down-left, matching the logo's extruded look.
+// Stacked hard shadows in em units so the depth scales with the font size.
+const EXTRUDE = Array.from({ length: 12 }, (_, i) => {
+  const d = ((i + 1) * 0.0045).toFixed(4);
+  return `-${d}em ${d}em 0 ${i < 9 ? "#1d4ed8" : "#172554"}`;
+}).join(", ");
+
+// Each letter's "level" (em, + is down). Letters drop in from these
+// heights on load and split back out to them as the logo assembles.
+const LETTER_LEVELS = [-0.3, 0.2, -0.12, 0.34, -0.24, 0.12, -0.36, 0.26];
+
+function Letter({ char, level, index, progress }) {
+  const splitY = useTransform(progress ?? NO_PROGRESS, (p) =>
+    `${level * between(p, 0, 0.3)}em`
+  );
+
+  return (
+    <motion.span
+      className="inline-block"
+      initial={{ y: `${level * 1.8}em`, opacity: 0 }}
+      animate={{ y: "0em", opacity: 1 }}
+      transition={{
+        y: { type: "spring", stiffness: 130, damping: 13, delay: 0.2 + index * 0.06 },
+        opacity: { duration: 0.3, delay: 0.2 + index * 0.06 },
+      }}
+    >
+      <motion.span
+        className="inline-block"
+        style={progress ? { y: splitY } : undefined}
+      >
+        {char}
+      </motion.span>
+    </motion.span>
+  );
+}
+
+function AbstractWord({ progress }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="block text-white font-black tracking-tight"
+      style={{ fontSize: "clamp(3.5rem, 14vw, 11rem)", textShadow: EXTRUDE }}
+    >
+      {"Abstract".split("").map((char, i) => (
+        <Letter
+          key={i}
+          char={char}
+          level={LETTER_LEVELS[i]}
+          index={i}
+          progress={progress}
+        />
+      ))}
+    </span>
+  );
+}
 
 // "Mechanics on a different level": the logo starts split across depth
 // levels and locks together as the visitor scrolls. The section is two
@@ -82,12 +143,8 @@ export default function Hero() {
         >
           {/* The name leads so it sticks; the slogan supports it */}
           <h1 className="uppercase leading-none mb-6">
-            <span
-              className="block text-white font-black tracking-tight"
-              style={{ fontSize: "clamp(3.5rem, 14vw, 11rem)" }}
-            >
-              Abstract
-            </span>
+            <span className="sr-only">Abstract </span>
+            <AbstractWord progress={reducedMotion ? null : scrollYProgress} />
             <span className="block text-blue-500 font-mono text-xs md:text-sm tracking-[0.5em] mt-3 mb-8 md:mb-10">
               Garage & Customs
             </span>

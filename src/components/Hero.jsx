@@ -80,15 +80,24 @@ export default function Hero() {
           style={reducedMotion ? undefined : { opacity: introOpacity, y: introY }}
           className="relative z-10 text-center px-6"
         >
-          <p className="text-blue-500 text-xs tracking-[0.4em] uppercase font-mono mb-6">
-            {business.name}
-          </p>
-          <h1
-            className="text-white font-black uppercase leading-none mb-6"
-            style={{ fontSize: "clamp(2.5rem, 8vw, 7rem)" }}
-          >
-            Mechanics On A<br />
-            <span className="text-blue-500">Different Level.</span>
+          {/* The name leads so it sticks; the slogan supports it */}
+          <h1 className="uppercase leading-none mb-6">
+            <span
+              className="block text-white font-black tracking-tight"
+              style={{ fontSize: "clamp(3.5rem, 14vw, 11rem)" }}
+            >
+              Abstract
+            </span>
+            <span className="block text-blue-500 font-mono text-xs md:text-sm tracking-[0.5em] mt-3 mb-8 md:mb-10">
+              Garage & Customs
+            </span>
+            <span
+              className="block text-white font-black"
+              style={{ fontSize: "clamp(1.5rem, 4.5vw, 3.75rem)" }}
+            >
+              Mechanics On A{" "}
+              <span className="text-blue-500">Different Level.</span>
+            </span>
           </h1>
           <p className="text-zinc-400 text-sm tracking-widest uppercase font-mono mb-10">
             {business.location.city}, {business.location.region} · By Appointment

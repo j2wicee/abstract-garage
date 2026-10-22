@@ -54,6 +54,15 @@ The **Recent Work** section, **Reviews** section, and **owner photo** stay hidde
 - [ ] Domain bought, `url` set in `src/data/business.js`, site deployed with the `VITE_EMAILJS_*` env vars
 - [ ] Add an `og:image` share photo in `index.html`
 
-## Credits
+## 3D logo
 
-3D model: ["Honda Prelude 1997 Free"](https://sketchfab.com/3d-models/honda-prelude-1997-free-d539a25580d347a6b3447fdc82031280) by [Black Snow](https://sketchfab.com/BlackSnow02), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Compressed with meshopt for the web. The attribution in the site footer is required by the license; keep it.
+The hero's 3D logo is built from `design/logo-source.jpg`. `scripts/trace-logo.py` traces the logo's black faces into outlines (`src/data/logo-shapes.json`), and `src/components/HeroScene.jsx` extrudes them into 3D pieces that start apart on different depth "levels" and lock together as you scroll.
+
+To re-trace from a better file (ideally a high-resolution PNG or the original vector art, black faces on a white background):
+
+```bash
+python -m pip install numpy opencv-python-headless
+python scripts/trace-logo.py design/logo-source.jpg src/data/logo-shapes.json
+```
+
+If the number or order of pieces changes, update `LEVELS` in `HeroScene.jsx` to match.

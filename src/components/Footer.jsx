@@ -91,36 +91,7 @@ export default function Footer({ links }) {
           <p>
             © {new Date().getFullYear()} {business.name}
           </p>
-          <p>
-            3D model:{" "}
-            <a
-              href="https://sketchfab.com/3d-models/honda-prelude-1997-free-d539a25580d347a6b3447fdc82031280"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-zinc-400"
-            >
-              “Honda Prelude 1997 Free”
-            </a>{" "}
-            by{" "}
-            <a
-              href="https://sketchfab.com/BlackSnow02"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-zinc-400"
-            >
-              Black Snow
-            </a>
-            ,{" "}
-            <a
-              href="https://creativecommons.org/licenses/by/4.0/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-zinc-400"
-            >
-              CC BY 4.0
-            </a>
-            , compressed for the web
-          </p>
+          <p className="uppercase tracking-widest">{business.tagline}</p>
         </div>
       </div>
     </footer>

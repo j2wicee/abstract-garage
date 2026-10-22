@@ -1,4 +1,5 @@
 import { business, telHref, smsHref, mailHref } from "../data/business";
+import CopyButton from "./CopyButton";
 
 const linkClass = "hover:text-white transition-colors duration-200";
 
@@ -35,10 +36,11 @@ export default function Footer({ links }) {
                   Text
                 </a>
               </li>
-              <li>
+              <li className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <a href={mailHref} className={`${linkClass} break-all`}>
                   {business.email}
                 </a>
+                <CopyButton text={business.email} />
               </li>
               {business.socials.map((social) => (
                 <li key={social.href}>

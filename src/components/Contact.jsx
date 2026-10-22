@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { business, telHref, smsHref, mailHref } from "../data/business";
+import CopyButton from "./CopyButton";
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -44,6 +45,7 @@ const contactInfo = [
     label: "Email",
     value: business.email,
     href: mailHref,
+    copy: business.email,
     note: "We reply within 24 hours",
   },
   {
@@ -205,12 +207,15 @@ export default function Contact({ number }) {
                     {item.label}
                   </p>
                   {item.href ? (
-                    <a
-                      href={item.href}
-                      className="text-white font-bold text-base break-all hover:text-blue-500 transition-colors duration-200"
-                    >
-                      {item.value}
-                    </a>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <a
+                        href={item.href}
+                        className="text-white font-bold text-base break-all hover:text-blue-500 transition-colors duration-200"
+                      >
+                        {item.value}
+                      </a>
+                      {item.copy && <CopyButton text={item.copy} />}
+                    </div>
                   ) : (
                     <p className="text-white font-bold text-base">{item.value}</p>
                   )}

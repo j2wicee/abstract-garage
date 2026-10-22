@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { business } from "../data/business";
 
 const stats = [
   {
@@ -48,7 +49,7 @@ function AnimatedHeadline({ text }) {
   return (
     <h2
       ref={ref}
-      className="text-white font-black uppercase leading-none text-5xl md:text-6xl lg:text-7xl"
+      className="text-white font-black uppercase leading-none text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
     >
       {words.map((word, i) => (
         <motion.span
@@ -69,7 +70,49 @@ function AnimatedHeadline({ text }) {
   );
 }
 
-export default function About() {
+// Hidden on the live site until business.owner.photo is set; placeholder in dev
+function OwnerPhoto() {
+  const { name, photo } = business.owner;
+  if (!photo && !import.meta.env.DEV) return null;
+
+  return (
+    <motion.figure
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.3 }}
+      className="relative mt-12 max-w-md border border-zinc-800 bg-zinc-900"
+    >
+      <div className="absolute top-0 left-0 w-12 h-[2px] bg-blue-500 z-10" />
+      {photo ? (
+        <img
+          src={photo}
+          alt={name ? `${name}, owner of ${business.name}` : "The owner at work"}
+          loading="lazy"
+          className="w-full aspect-[4/3] object-cover"
+        />
+      ) : (
+        <div className="w-full aspect-[4/3] border border-dashed border-zinc-700 flex items-center justify-center">
+          <span className="font-mono text-xs text-zinc-600 tracking-widest uppercase">
+            Owner photo · set in src/data/business.js
+          </span>
+        </div>
+      )}
+      {name && (
+        <figcaption className="p-4 border-t border-zinc-800">
+          <p className="text-white font-bold text-sm uppercase tracking-wide">
+            {name}
+          </p>
+          <p className="text-zinc-500 font-mono text-xs tracking-widest uppercase mt-1">
+            Owner & Mechanic
+          </p>
+        </figcaption>
+      )}
+    </motion.figure>
+  );
+}
+
+export default function About({ number }) {
   const cardRef = useRef(null);
   const cardInView = useInView(cardRef, {
     once: true,
@@ -83,7 +126,7 @@ export default function About() {
   });
 
   return (
-    <section className="bg-[#0a0a0a] py-32 px-6 relative overflow-hidden">
+    <section id="about" className="bg-[#0a0a0a] py-32 px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section tag */}
         <motion.p
@@ -93,7 +136,7 @@ export default function About() {
           transition={{ duration: 0.5 }}
           className="text-blue-500 font-mono text-xs tracking-[0.3em] uppercase mb-6"
         >
-          // 02 / About
+          // {number} / About
         </motion.p>
 
         {/* Main two-column layout */}
@@ -137,6 +180,8 @@ export default function About() {
                 Started small. Still do it right.
               </p>
             </motion.div>
+
+            <OwnerPhoto />
           </div>
 
           {/* Right: credibility card */}

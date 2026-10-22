@@ -1,6 +1,6 @@
 const items = [
   "Abstract Garage & Customs",
-  "Mechanic On A Different Level",
+  "Mechanics On A Different Level",
   "Small Engine Repair",
   "Tune-Ups",
   "Oil Change",
@@ -14,8 +14,9 @@ const items = [
 
 export default function Ticker() {
   return (
-    <div className="w-full bg-blue-500 overflow-hidden py-3">
-      <div className="flex whitespace-nowrap animate-ticker">
+    // Decorative: everything here is repeated elsewhere on the page
+    <div aria-hidden="true" className="w-full bg-blue-500 overflow-hidden py-3">
+      <div className="flex whitespace-nowrap animate-ticker motion-reduce:animate-none">
         {[...items, ...items].map((item, i) => (
           <span
             key={i}

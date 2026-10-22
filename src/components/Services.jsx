@@ -81,12 +81,12 @@ function ServiceCard({ service, index }) {
   );
 }
 
-export default function Services() {
+export default function Services({ number }) {
   const titleRef = useRef(null);
   const titleInView = useInView(titleRef, { once: true });
 
   return (
-    <section className="bg-[#0a0a0a] py-32 px-6">
+    <section id="services" className="bg-[#0a0a0a] py-32 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div ref={titleRef} className="mb-16">
@@ -96,13 +96,13 @@ export default function Services() {
             transition={{ duration: 0.5 }}
             className="text-blue-500 font-mono text-xs tracking-[0.3em] uppercase mb-6"
           >
-            // 01 / Services
+            // {number} / Services
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={titleInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-white font-black uppercase text-5xl md:text-7xl leading-none"
+            className="text-white font-black uppercase text-4xl sm:text-5xl md:text-7xl leading-none"
           >
             What We
             <br />
